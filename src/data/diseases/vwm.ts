@@ -1,0 +1,125 @@
+import type { Disease } from '../types'
+
+const GR = 'gr:vwm'
+
+export const vwm: Disease = {
+  id: 'vwm',
+  name: 'Vanishing White Matter Disease',
+  short: 'VWM',
+  color: '#b8901a',
+  synonyms: ['Childhood ataxia with CNS hypomyelination (CACH)', 'Leukoencephalopathy with vanishing white matter', 'eIF2B-related disorder', 'Cree leukoencephalopathy (allelic)', 'Ovarioleukodystrophy'],
+  classification: 'Cystic / rarefying leukodystrophy (astrocytopathy); disorder of translation regulation',
+  inheritance: 'Autosomal recessive',
+  genes: ['EIF2B1', 'EIF2B2', 'EIF2B3', 'EIF2B4', 'EIF2B5'],
+  tagline: 'eIF2B dysfunction → deregulated integrated stress response → stress-provoked white-matter loss.',
+  identifiers: [
+    { label: 'OMIM', value: 'PS603896', url: 'https://www.omim.org/phenotypicSeries/PS603896' },
+    { label: 'Orphanet', value: 'ORPHA:135', url: 'https://www.orpha.net/en/disease/detail/135' },
+    { label: 'GeneReviews', value: 'NBK1258', url: 'https://www.ncbi.nlm.nih.gov/books/NBK1258/' },
+    { label: 'MONDO', value: 'search', url: 'https://monarchinitiative.org/search?q=vanishing%20white%20matter' },
+  ],
+  identity: [
+    { label: 'Primary defect', text: 'Biallelic variants in any of the five genes encoding eIF2B subunits (EIF2B1–5).', ev: 'established', src: ['lit:leegwater2001', GR] },
+    { label: 'Core biology', text: 'Reduced eIF2B GEF activity deregulates the integrated stress response (ISR).', ev: 'strong', src: ['lit:abbink2019', 'lit:wong2019'] },
+    { label: 'Hallmark feature', text: 'Episodes of rapid neurological deterioration provoked by febrile illness, minor head trauma or fright.', ev: 'established', src: ['lit:vdknaap2006'] },
+    { label: 'Primary cell types', text: 'Astrocytes (dysmorphic, immature) and oligodendrocytes (foamy, increased OPCs).', ev: 'strong', src: ['lit:dooves2016'] },
+  ],
+  clinical: [
+    { label: 'Age of onset', text: 'Ranges from antenatal to adulthood; most common in early childhood (1–5 years).', ev: 'established', src: ['lit:hamilton2018'] },
+    { label: 'Neurological features', text: 'Cerebellar ataxia, spasticity, relatively preserved cognition early; optic atrophy; epilepsy in some.', ev: 'established', src: [GR] },
+    { label: 'Progression', text: 'Chronic progression punctuated by stress-provoked episodes of rapid decline, sometimes with coma.', ev: 'established', src: ['lit:vdknaap2006'] },
+    { label: 'Prognosis', text: 'Earlier onset strongly predicts faster progression and earlier death.', ev: 'established', src: ['lit:hamilton2018'] },
+    { label: 'Extra-neurological', text: 'Ovarian failure in affected females (ovarioleukodystrophy); antenatal forms with multi-organ involvement.', ev: 'established', src: ['lit:fogli2004'] },
+  ],
+  epidemiology: [
+    { label: 'Prevalence', text: 'Considered one of the more common childhood leukodystrophies, but population incidence is not established.', ev: 'unknown', src: ['lit:vdknaap2006', 'orpha:135'] },
+    { label: 'Founder variant', text: 'EIF2B5 p.Arg195His causes Cree leukoencephalopathy in the Cree population of Quebec and Manitoba.', ev: 'established', src: ['lit:fogli2002'] },
+    { label: 'Most common variant', text: 'EIF2B5 p.Arg113His is the most frequent variant overall, often associated with milder disease.', ev: 'established', src: ['lit:hamilton2018', GR] },
+    { label: 'Gene distribution', text: 'EIF2B5 is the most frequently involved gene, followed by EIF2B4.', ev: 'established', src: [GR] },
+  ],
+  variants: [
+    { id: 'eif2b5-r113h', disease: 'vwm', gene: 'EIF2B5', transcript: 'NM_003907.3', hgvsc: 'c.338G>A', hgvsp: 'p.(Arg113His)', build: 'GRCh38', type: 'Missense', consequence: 'Mildly reduced eIF2B GEF activity', clinvar: 'Pathogenic', popFreq: 'Most common VWM allele (European)', phenotype: 'Milder, later-onset VWM when homozygous', functional: 'Modest reduction of GEF activity; mouse knock-in models', ev: 'established', why: 'Large natural-history cohort and functional studies.', src: ['lit:hamilton2018', 'db:clinvar:EIF2B5'] },
+    { id: 'eif2b5-r195h', disease: 'vwm', gene: 'EIF2B5', transcript: 'NM_003907.3', hgvsc: 'c.584G>A', hgvsp: 'p.(Arg195His)', build: 'GRCh38', type: 'Missense', consequence: 'Severe reduction of eIF2B activity', clinvar: 'Pathogenic', popFreq: 'Founder in Cree population', phenotype: 'Cree leukoencephalopathy (severe infantile)', functional: 'Reduced GEF activity', ev: 'established', src: ['lit:fogli2002', 'db:clinvar:EIF2B5'] },
+  ],
+  genotypePhenotype: [
+    { aspect: 'Age of onset', finding: 'Strong correlation between genotype and onset/severity in siblings and for recurrent variants.', ev: 'strong', src: ['lit:hamilton2018'] },
+    { aspect: 'Severity', finding: 'p.Arg113His homozygosity is associated with milder disease.', ev: 'established', src: ['lit:hamilton2018'] },
+    { aspect: 'Survival / outcome', finding: 'Earlier age at onset predicts shorter survival.', ev: 'established', src: ['lit:hamilton2018'] },
+    { aspect: 'Biomarker levels', finding: 'In vitro GEF activity reduction does not consistently predict clinical severity.', ev: 'controversial', src: ['lit:vdknaap2006'] },
+    { aspect: 'Clinical phenotype', finding: 'Ovarian failure occurs in females across genotypes.', ev: 'established', src: ['lit:fogli2004'] },
+  ],
+  mechanism: [
+    { stage: 'Gene', label: 'EIF2B1–5', detail: 'Biallelic hypomorphic variants (complete loss is lethal).', ev: 'established', src: ['lit:leegwater2001'] },
+    { stage: 'Protein', label: 'eIF2B decamer', detail: 'Reduced GEF activity / stability of the complex.', ev: 'established', src: ['lit:leegwater2001'] },
+    { stage: 'Molecular function', label: 'eIF2-GDP recycling impaired', detail: 'Reduced ternary-complex formation for translation initiation.', ev: 'strong', src: ['lit:abbink2019'] },
+    { stage: 'Pathway', label: 'Chronic ISR activation', detail: 'ATF4-driven ISR deregulated in astrocytes; worsened by stress.', ev: 'strong', src: ['lit:abbink2019', 'lit:wong2019'] },
+    { stage: 'Cellular consequence', label: 'Astrocyte dysfunction → OPC maturation block', detail: 'Immature dysmorphic astrocytes inhibit oligodendrocyte maturation.', ev: 'strong', src: ['lit:dooves2016'] },
+    { stage: 'Phenotype', label: 'Rarefaction / cystic white matter', detail: 'White matter progressively replaced by fluid; stress-provoked decline.', ev: 'established', src: ['lit:vdknaap2006'] },
+  ],
+  relations: [
+    { from: ['gene', 'EIF2B5'], to: ['pathway', 'Integrated stress response'], label: 'deregulates', ev: 'strong', why: 'Patient cells, mouse models and pharmacological rescue.', src: ['lit:abbink2019', 'lit:wong2019'] },
+    { from: ['pathway', 'Integrated stress response'], to: ['cell', 'Astrocytes'], label: 'activated in', ev: 'strong', why: 'Astrocytes show strongest ISR activation in patient tissue and mouse models.', src: ['lit:dooves2016', 'lit:abbink2019'] },
+    { from: ['cell', 'Astrocytes'], to: ['cell', 'Oligodendrocytes'], label: 'impair maturation of', ev: 'strong', why: 'Co-culture and chimeric mouse experiments.', src: ['lit:dooves2016'] },
+    { from: ['phenotype', 'Febrile illness / head trauma'], to: ['phenotype', 'Episodic deterioration'], label: 'provokes', ev: 'established', why: 'Defining clinical feature in large cohorts.', src: ['lit:vdknaap2006', 'lit:hamilton2018'] },
+    { from: ['therapy', 'eIF2B activators (ISRIB-class)'], to: ['pathway', 'Integrated stress response'], label: 'normalises', ev: 'emerging', why: '2BAct prevents disease in VWM mice; human data pending.', src: ['lit:wong2019'] },
+    { from: ['gene', 'EIF2B5'], to: ['cell', 'Non-CNS tissue'], label: 'ovarian failure', ev: 'established', why: 'Ovarioleukodystrophy described in multiple cohorts.', src: ['lit:fogli2004'] },
+  ],
+  cells: [
+    { cell: 'Astrocytes', role: 'primary', detail: 'Dysmorphic, immature astrocytes with ISR activation; central to pathogenesis.', ev: 'strong', src: ['lit:dooves2016'] },
+    { cell: 'Oligodendrocytes', role: 'primary', detail: 'Foamy oligodendrocytes, increased OPCs with maturation block.', ev: 'strong', src: ['lit:dooves2016'] },
+    { cell: 'Neurons / axons', role: 'secondary', detail: 'Relatively spared; axonal loss with rarefaction.', ev: 'strong', src: [GR] },
+    { cell: 'Microglia / macrophages', role: 'secondary', detail: 'Paucity of inflammation is characteristic.', ev: 'strong', src: ['lit:vdknaap2006'] },
+    { cell: 'Non-CNS tissue', role: 'secondary', detail: 'Ovaries (premature failure); multi-organ in antenatal forms.', ev: 'established', src: ['lit:fogli2004'] },
+  ],
+  regions: [
+    { region: 'Cerebral hemispheric white matter', finding: 'Diffuse abnormality; progressive rarefaction with CSF-like signal on FLAIR.', src: ['lit:vdknaap2006'] },
+    { region: 'U-fibres', finding: 'Relatively spared.', src: [GR] },
+    { region: 'Cerebellum & brainstem', finding: 'Cerebellar atrophy; central tegmental tracts involved.', src: [GR] },
+  ],
+  biomarkers: [
+    { name: 'MRI rarefaction pattern', category: 'Imaging', significance: 'Pathognomonic pattern of white-matter rarefaction/cavitation.', sample: 'In vivo brain', assay: 'MRI with FLAIR / PD', purpose: ['Diagnosis', 'Monitoring'], status: 'Established clinical', limitations: 'May be subtle in very early or adult disease.', ev: 'established', src: ['lit:vdknaap2006'] },
+    { name: 'CSF asialotransferrin', category: 'Biochemical', significance: 'Decreased in VWM; supportive marker.', sample: 'CSF', assay: 'Isoelectric focusing', purpose: ['Diagnosis'], status: 'Clinical adjunct', limitations: 'Not specific or universally available.', ev: 'emerging', src: [GR] },
+    { name: 'eIF2B GEF activity', category: 'Enzymatic', significance: 'Functional confirmation of variants.', sample: 'Lymphoblasts', assay: 'GEF assay', purpose: ['Diagnosis'], status: 'Experimental', limitations: 'Research use; poor severity prediction.', ev: 'emerging', src: [GR] },
+    { name: 'CSF/blood GFAP & NfL', category: 'Fluid (neuro-glial injury)', significance: 'Astrocytic and axonal injury markers.', sample: 'CSF / plasma', assay: 'Immunoassay', purpose: ['Monitoring'], status: 'Experimental', limitations: 'Small studies.', ev: 'proposed', src: [GR] },
+    { name: 'FSH / LH (females)', category: 'Endocrine', significance: 'Detect ovarian failure.', sample: 'Serum', assay: 'Immunoassay', purpose: ['Monitoring'], status: 'Established clinical', limitations: '—', ev: 'established', src: ['lit:fogli2004'] },
+  ],
+  diagnosis: [
+    { phase: 'Suspicion', category: 'Clinical', method: 'Clinical history', detail: 'Ataxia/spasticity with episodic decline after fever or minor head trauma.', src: ['lit:vdknaap2006'] },
+    { phase: 'Investigation', category: 'Imaging', method: 'Brain MRI', detail: 'Diffuse WM abnormality with progressive rarefaction (CSF-like signal).', src: ['lit:vdknaap2006'] },
+    { phase: 'Confirmation', category: 'Genetic', method: 'EIF2B1–5 panel / exome', detail: 'Biallelic pathogenic variants in one EIF2B gene.', src: [GR] },
+  ],
+  differential: ['Alexander disease', 'Mitochondrial leukoencephalopathies', 'Megalencephalic leukoencephalopathy with subcortical cysts', 'Adult: multiple sclerosis or vascular leukoencephalopathy'],
+  phenotypes: {
+    applicable: true,
+    note: 'Classified by age at onset, which is the strongest predictor of course.',
+    forms: [
+      { name: 'Antenatal / early infantile', onset: '< 1 year', severity: 'Severe', progression: 'Rapid; multi-organ in antenatal', genetics: 'Severe alleles (e.g. Cree p.Arg195His)', markers: 'Extensive rarefaction', src: ['lit:hamilton2018', 'lit:fogli2002'] },
+      { name: 'Classic childhood', onset: '1–5 years', severity: 'Moderate–severe', progression: 'Chronic with episodes', genetics: 'Various', markers: 'Classic MRI pattern', src: ['lit:hamilton2018'] },
+      { name: 'Juvenile / adult', onset: '> 5 years / adulthood', severity: 'Milder', progression: 'Slow; ovarian failure, cognitive / psychiatric', genetics: 'Often p.Arg113His', markers: 'Less rarefaction', src: ['lit:hamilton2018', 'lit:fogli2004'] },
+    ],
+  },
+  management: [
+    { category: 'Supportive', text: 'Avoid provoking factors: prompt fever treatment, vaccination, protection from head trauma.', src: ['lit:vdknaap2006', GR] },
+    { category: 'Symptomatic', text: 'Spasticity and seizure management.', src: [GR] },
+    { category: 'Monitoring', text: 'Endocrine (ovarian) monitoring in females.', src: ['lit:fogli2004'] },
+    { category: 'Supportive', text: 'Avoid general anaesthesia when possible; plan carefully when needed.', src: [GR] },
+  ],
+  therapies: [
+    { id: 'vwm-2bact', name: 'eIF2B activators (ISRIB-class, e.g. 2BAct)', modality: 'Small molecule', target: 'eIF2B', mechanism: 'Stabilise the eIF2B decamer, restoring GEF activity and dampening ISR.', delivery: 'Oral', stage: 'Animal studies', evidenceBase: 'Animal', status: 'Preclinical rescue; clinical-grade analogues in development', ev: 'emerging', why: 'Full prevention of disease in VWM mice; no published human trial.', src: ['lit:wong2019'] },
+    { id: 'vwm-guanabenz', name: 'Guanabenz', modality: 'Small molecule', target: 'PPP1R15A (ISR)', mechanism: 'Modulates eIF2α dephosphorylation (ISR).', delivery: 'Oral', stage: 'Early human trials', evidenceBase: 'Human + animal', status: 'Investigator-led study (EU)', ev: 'proposed', why: 'Mouse data; human results limited.', src: ['lit:abbink2019'] },
+    { id: 'vwm-gt', name: 'AAV EIF2B gene therapy', modality: 'Gene therapy', target: 'EIF2B5 / EIF2B4', mechanism: 'Gene replacement in astrocytes.', delivery: 'CNS (model)', stage: 'Discovery', evidenceBase: 'Animal', status: 'Discovery', ev: 'proposed', why: 'Early-stage research only.', src: [GR] },
+  ],
+  trials: [],
+  milestones: [
+    { year: 2001, label: 'EIF2B genes identified', stage: 'Discovery', src: ['lit:leegwater2001'] },
+    { year: 2016, label: 'Astrocytes shown to be central', stage: 'Animal studies', src: ['lit:dooves2016'] },
+    { year: 2018, label: 'Large natural-history study', stage: 'Discovery', src: ['lit:hamilton2018'] },
+    { year: 2019, label: 'eIF2B activator prevents VWM in mice', stage: 'Animal studies', src: ['lit:wong2019'] },
+    { year: 2019, label: 'ISR modulators (guanabenz) toward clinic', stage: 'Early human trials', src: ['lit:abbink2019'] },
+  ],
+  gaps: [
+    { text: 'Why a ubiquitous translation-factor defect is selectively toxic to white matter.', ev: 'proposed', src: ['lit:abbink2019'] },
+    { text: 'Human efficacy of ISR-targeting drugs.', ev: 'unknown', src: ['lit:wong2019'] },
+    { text: 'Population incidence and adult-onset frequency.', ev: 'unknown', src: ['lit:vdknaap2006'] },
+  ],
+}
