@@ -117,9 +117,6 @@ export function Home({ section }: { section?: string | null }) {
         </div>
 
         <div className="stage">
-          <span className="stage-pill">
-            <Icon name="evidence" size={15} /> {DISEASES.length} leukodystrophies curated
-          </span>
           <h1 className="stage-title">GeneMap</h1>
           <p className="stage-sub">An integrated research atlas of genetic leukodystrophies, with every claim graded and sourced.</p>
           <SearchBox big />
@@ -142,9 +139,6 @@ export function Home({ section }: { section?: string | null }) {
 
         <div className="dash-col">
           <Link to="/evidence" className="feature-card">
-            <span className="feature-result">
-              <Icon name="evidence" size={14} /> Explore
-            </span>
             <span className="feature-kicker">Evidence grading</span>
             <span className="feature-date">Last updated {fmtDate(lastUpdated)}</span>
             <strong>{EVIDENCE_ITEMS.length.toLocaleString('en-GB')} graded statements</strong>
@@ -179,7 +173,6 @@ export function Home({ section }: { section?: string | null }) {
                 Full list
               </Link>
             </div>
-            <span className="pill pill-orange">Time-stamped records</span>
             <div className="trial-big">
               <strong>{ALL_TRIALS.length}</strong>
               <span>registered trials across {new Set(ALL_TRIALS.map((t) => t.diseaseId)).size} diseases</span>
