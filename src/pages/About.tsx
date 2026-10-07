@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Icon, IconTile, type IconName } from '../components/icons'
-import { Disclaimer } from '../components/ui'
 import { ALL_TRIALS, ALL_VARIANTS, DISEASES, EVIDENCE, EVIDENCE_ITEMS, GENES, SOURCES } from '../data'
 import { Link } from '../lib/Link'
 
@@ -187,7 +186,6 @@ export function About({ section }: { section?: string | null }) {
           ['method', 'Methodology'],
           ['contribution', 'Contribution'],
           ['future', 'Future directions'],
-          ['disclaimer', 'Disclaimer'],
         ].map(([id, label], i) => (
           <button key={id} type="button" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
             <span>{i + 1}</span>
@@ -319,12 +317,6 @@ export function About({ section }: { section?: string | null }) {
         that helps bridge genetic information, molecular understanding, and therapeutic discovery.
       </p>
 
-      <section className="block">
-        <div className="block-head">
-          <h2>Disclaimer</h2>
-        </div>
-        <Disclaimer />
-      </section>
     </div>
   )
 }

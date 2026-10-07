@@ -74,7 +74,6 @@ export function Therapeutics({ diseaseId, tab: tab0 }: { diseaseId?: string | nu
 
       {tab === 'trials' && (
         <>
-          <p className="muted sm">Statuses are curated snapshots (date shown). Always confirm current status on ClinicalTrials.gov.</p>
           <TrialTable trials={trials} showDisease />
         </>
       )}

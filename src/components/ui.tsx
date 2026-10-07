@@ -139,31 +139,6 @@ export function Clamp({ children, lines = 3, className = '' }: { children: React
   )
 }
 
-/** Research/education disclaimer. `variant="bar"` is the slim site-wide strip. */
-export function Disclaimer({ variant = 'card' }: { variant?: 'card' | 'bar' | 'inline' }) {
-  if (variant === 'bar')
-    return (
-      <div className="disclaimer-bar" role="note">
-        <Icon name="shield" size={15} />
-        <span>
-          <b>For research &amp; education only</b> — not a substitute for medical advice. <Link to="/about?s=disclaimer">Read the disclaimer</Link>
-        </span>
-      </div>
-    )
-  return (
-    <div className={`disclaimer disclaimer-${variant}`} role="note" id={variant === 'card' ? 'disclaimer' : undefined}>
-      <IconTile name="shield" tone="orange" size={variant === 'inline' ? 32 : 44} />
-      <div>
-        <b>GeneMap is a research and educational atlas — not a substitute for medical advice.</b>
-        <p>
-          Nothing here should be used to diagnose, treat or make decisions about any individual's health. Always consult a qualified clinician or genetic counsellor
-          with medical questions. Trial statuses are time-stamped snapshots; confirm them on ClinicalTrials.gov.
-        </p>
-      </div>
-    </div>
-  )
-}
-
 /** "Last updated" stamp for curated modules. */
 export function Updated({ date, label = 'Last updated' }: { date: string; label?: string }) {
   const fmt = new Date(`${date}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })

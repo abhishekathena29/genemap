@@ -691,7 +691,6 @@ export function TrialTable({ trials, showDisease }: { trials: (Disease['trials']
 function Trials({ d }: { d: Disease }) {
   return (
     <Section id="trials" n={14} title="Clinical trials">
-      <p className="muted sm">Trial status changes; every record carries the date of its curated snapshot. “Unverified” records have not yet been re-checked against the registry.</p>
       <TrialTable trials={d.trials} />
     </Section>
   )

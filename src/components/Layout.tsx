@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { search } from '../data'
-import { Disclaimer } from './ui'
 import { Link } from '../lib/Link'
 import { navigate, useRoute } from '../lib/router'
 
@@ -42,7 +41,6 @@ export function Layout({ children }: { children: ReactNode }) {
           </button>
         </div>
       </header>
-      <Disclaimer variant="bar" />
       <main className="main">{children}</main>
       <footer className="footer">
         <div className="footer-brand">
@@ -57,10 +55,6 @@ export function Layout({ children }: { children: ReactNode }) {
             <Link to="/?s=how-to-use">How to use</Link>
             <Link to="/sources">Sources</Link>
           </nav>
-        </div>
-        <Disclaimer variant="inline" />
-        <div className="muted sm">
-          Curation status: seed dataset assembled from public reference resources. Evidence levels, variants and trial records must be reconciled against the GeneMap research dossiers. Trial statuses are time-stamped snapshots — always confirm on ClinicalTrials.gov.
         </div>
       </footer>
     </div>
