@@ -44,8 +44,8 @@ export function Diseases() {
   )
   return (
     <div className="page">
-      <PageHead kicker="Disease explorer" title="Leukodystrophies in the atlas">
-        Every disease module uses the same 15 sections in the same order, so researchers can move between disorders and compare like with like.
+      <PageHead icon="disease" kicker="Disease explorer" title="Leukodystrophies in the atlas">
+        Every disease module uses the same 16 sections in the same order, so researchers can move between disorders and compare like with like.
       </PageHead>
       <div className="filters">
         <label>

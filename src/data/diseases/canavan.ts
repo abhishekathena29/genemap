@@ -6,6 +6,7 @@ export const canavan: Disease = {
   id: 'canavan',
   name: 'Canavan Disease',
   short: 'Canavan',
+  lastUpdated: '2026-10-05',
   color: '#2f7fd8',
   synonyms: ['Aspartoacylase deficiency', 'ASPA deficiency', 'Spongy degeneration of the CNS', 'Canavan–van Bogaert–Bertrand disease'],
   classification: 'Spongiform leukodystrophy; organic aciduria (NAA metabolism)',

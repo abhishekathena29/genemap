@@ -19,7 +19,7 @@ export function Therapeutics({ diseaseId, tab: tab0 }: { diseaseId?: string | nu
 
   return (
     <div className="page">
-      <PageHead kicker="Therapeutics" title="Therapeutic landscape">
+      <PageHead icon="therapy" kicker="Therapeutics" title="Therapeutic landscape">
         Therapies organised by target, mechanism, delivery, development stage and evidence base — with a time-stamped clinical-trial register.
       </PageHead>
       <Tabs<Tab>

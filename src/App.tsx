@@ -1,4 +1,5 @@
 import { InspectorProvider } from './components/Inspector'
+import { About } from './pages/About'
 import { Layout } from './components/Layout'
 import { Empty } from './components/ui'
 import { useRoute } from './lib/router'
@@ -18,7 +19,7 @@ function Page() {
   // `key` remounts pages when their query-driven initial state changes.
   switch (head) {
     case undefined:
-      return <Home />
+      return <Home key={query.toString()} section={query.get('s')} />
     case 'diseases':
       return <Diseases />
     case 'disease':
@@ -37,6 +38,8 @@ function Page() {
       return <Evidence key={query.toString()} diseaseId={query.get('d')} level={query.get('ev')} />
     case 'search':
       return <Search q={query.get('q') ?? ''} />
+    case 'about':
+      return <About key={query.toString()} section={query.get('s')} />
     case 'sources':
       return <Sources />
     default:

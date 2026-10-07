@@ -300,6 +300,8 @@ export interface Disease {
   trials: Trial[]
   milestones: Milestone[]
   gaps: Claim[]
+  /** ISO date (YYYY-MM-DD) the module's content was last revised. */
+  lastUpdated: string
 }
 
 export const MODALITIES: Modality[] = [

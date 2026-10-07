@@ -6,6 +6,7 @@ export const mld: Disease = {
   id: 'mld',
   name: 'Metachromatic Leukodystrophy',
   short: 'MLD',
+  lastUpdated: '2026-10-05',
   color: '#8a55c9',
   synonyms: ['Arylsulfatase A deficiency', 'ARSA deficiency', 'Sulfatide lipidosis'],
   classification: 'Lysosomal storage disorder (sphingolipidosis); demyelinating leukodystrophy',

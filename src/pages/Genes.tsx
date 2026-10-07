@@ -12,7 +12,7 @@ export function Genes() {
   const list = GENES.filter((g) => !q || `${g.symbol} ${g.name} ${g.protein} ${g.pathway}`.toLowerCase().includes(q.toLowerCase()))
   return (
     <div className="page">
-      <PageHead kicker="Gene explorer" title="Genes in the atlas">
+      <PageHead icon="dna" kicker="Gene explorer" title="Genes in the atlas">
         Disease-causing genes plus curated modifier / target genes. Each gene opens a hub of every connected disease, variant, relationship, biomarker, therapy and trial.
       </PageHead>
       <div className="filters">
@@ -63,7 +63,7 @@ export function GenePage({ symbol }: { symbol: string }) {
   const hub = geneHub(symbol)
   return (
     <div className="page">
-      <PageHead kicker="Gene hub" title={g.symbol}>
+      <PageHead icon="gene" kicker="Gene hub" title={g.symbol}>
         {g.name} · <span className="mono">{g.location}</span>
       </PageHead>
 

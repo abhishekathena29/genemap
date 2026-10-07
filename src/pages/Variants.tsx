@@ -29,7 +29,7 @@ export function Variants({ diseaseId, variantId }: { diseaseId?: string | null; 
 
   return (
     <div className="page">
-      <PageHead kicker="Variant explorer" title="Curated variants">
+      <PageHead icon="variant" kicker="Variant explorer" title="Curated variants">
         Variants represented individually where evidence supports it. Click a row for HGVS nomenclature, transcript, genome build, consequence, ClinVar, population frequency,
         functional evidence and literature.
       </PageHead>

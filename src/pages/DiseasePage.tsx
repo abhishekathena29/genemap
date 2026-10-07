@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { Cites, ClaimRow, DiseaseChip, Empty, EvidenceBadge, EvidenceLegend } from '../components/ui'
+import { Icon, IconTile, type IconName } from '../components/icons'
+import { Cites, ClaimRow, Clamp, DiseaseChip, Empty, EvidenceBadge, EvidenceLegend, Updated } from '../components/ui'
 import { MechanismChain, MilestoneTimeline, NetworkGraph, Pipeline, RelationGraph, StackBar, type GEdge, type GNode } from '../components/viz'
 import { DISEASE_BY_ID, DISEASES, GENE_BY_SYMBOL } from '../data'
 import { evidenceRank } from '../data/evidence'
@@ -9,30 +10,35 @@ import { useInspector } from '../lib/inspector-context'
 import { Link } from '../lib/Link'
 
 const SECTIONS = [
-  ['identity', 'Disease identity'],
-  ['clinical', 'Clinical & biological summary'],
-  ['epidemiology', 'Epidemiology & populations'],
-  ['genetics', 'Genetics'],
-  ['variants', 'Variant-level information'],
-  ['genotype-phenotype', 'Genotype–phenotype'],
-  ['mechanism', 'Molecular mechanism'],
-  ['spatial', 'Brain, cellular & spatial biology'],
-  ['biomarkers', 'Biomarkers'],
-  ['diagnosis', 'Diagnosis & testing'],
-  ['phenotypes', 'Typical vs atypical phenotype'],
-  ['management', 'Current management'],
-  ['therapeutics', 'Therapeutic development'],
-  ['trials', 'Clinical trials'],
-  ['pipeline', 'Therapeutic pipeline timeline'],
-  ['gaps', 'Research gaps'],
-] as const
+  ['identity', 'Disease identity', 'disease'],
+  ['clinical', 'Clinical & biological summary', 'person'],
+  ['epidemiology', 'Epidemiology & populations', 'chart'],
+  ['genetics', 'Genetics', 'dna'],
+  ['variants', 'Variant-level information', 'variant'],
+  ['genotype-phenotype', 'Genotype–phenotype', 'link'],
+  ['mechanism', 'Molecular mechanism', 'mechanism'],
+  ['spatial', 'Brain, cellular & spatial biology', 'cell'],
+  ['biomarkers', 'Biomarkers', 'target'],
+  ['diagnosis', 'Diagnosis & testing', 'diagnosis'],
+  ['phenotypes', 'Typical vs atypical phenotype', 'person'],
+  ['management', 'Current management', 'shield'],
+  ['therapeutics', 'Therapeutic development', 'therapy'],
+  ['trials', 'Clinical trials', 'trial'],
+  ['pipeline', 'Therapeutic pipeline timeline', 'rocket'],
+  ['gaps', 'Research gaps', 'research'],
+] as const satisfies readonly (readonly [string, string, IconName])[]
 
 function Section({ id, n, title, children, aside }: { id: string; n: number; title: string; children: ReactNode; aside?: ReactNode }) {
   return (
     <section id={id} className="dsec">
       <div className="dsec-head">
-        <span className="dsec-n">{String(n).padStart(2, '0')}</span>
-        <h2>{title}</h2>
+        <span className="dsec-ico">
+          <Icon name={SECTIONS.find((s) => s[0] === id)?.[2] ?? 'info'} size={20} />
+        </span>
+        <div className="dsec-title">
+          <span className="dsec-n">Section {String(n).padStart(2, '0')}</span>
+          <h2>{title}</h2>
+        </div>
         {aside && <div className="dsec-aside">{aside}</div>}
       </div>
       {children}
@@ -78,33 +84,50 @@ export function DiseasePage({ id, section }: { id: string; section?: string | nu
   return (
     <div className="dpage" style={{ ['--dc' as string]: d.color }}>
       <header className="dhero">
-        <div className="kicker">
-          <Link to="/diseases">Disease explorer</Link> / {d.short}
+        <div className="dhero-card">
+          <div className="dhero-top">
+            <div className="kicker">
+              <Link to="/diseases">Disease explorer</Link> / {d.short}
+            </div>
+            <Updated date={d.lastUpdated} />
+          </div>
+          <h1>{d.name}</h1>
+          <p className="dhero-tag">{d.tagline}</p>
+          <div className="dhero-switch">
+            <Link to={`/disease/${prev.id}`}>← {prev.short}</Link>
+            <Link to={`/compare`}>Compare all</Link>
+            <Link to={`/disease/${next.id}`}>{next.short} →</Link>
+          </div>
         </div>
-        <h1>{d.name}</h1>
-        <p className="dhero-tag">{d.tagline}</p>
         <div className="dhero-facts">
-          <span>
+          <div className="fact">
+            <IconTile name="link" tone="violet" size={34} />
             <em>Inheritance</em>
-            {d.inheritance}
-          </span>
-          <span>
+            <span>{d.inheritance}</span>
+          </div>
+          <div className="fact">
+            <IconTile name="dna" tone="blue" size={34} />
             <em>Gene{d.genes.length > 1 ? 's' : ''}</em>
-            {d.genes.map((g) => (
-              <Link key={g} to={`/gene/${g}`} className="gene-tag">
-                {g}
-              </Link>
-            ))}
-          </span>
-          <span>
+            <span className="fact-genes">
+              {d.genes.map((g) => (
+                <Link key={g} to={`/gene/${g}`} className="gene-tag">
+                  {g}
+                </Link>
+              ))}
+            </span>
+          </div>
+          <div className="fact fact-wide">
+            <IconTile name="layers" tone="teal" size={34} />
             <em>Class</em>
-            {d.classification}
-          </span>
-        </div>
-        <div className="dhero-switch">
-          <Link to={`/disease/${prev.id}`}>← {prev.short}</Link>
-          <Link to={`/compare`}>Compare all</Link>
-          <Link to={`/disease/${next.id}`}>{next.short} →</Link>
+            <span>{d.classification}</span>
+          </div>
+          <div className="fact">
+            <IconTile name="trial" tone="green" size={34} />
+            <em>Trials · therapies</em>
+            <span className="fact-num">
+              {d.trials.length} · {d.therapies.length}
+            </span>
+          </div>
         </div>
       </header>
 
@@ -163,6 +186,9 @@ export function DiseasePage({ id, section }: { id: string; section?: string | nu
           <Section id="gaps" n={16} title="Major research gaps">
             <div className="claims">{d.gaps.map((c, i) => <ClaimRow key={i} c={c} />)}</div>
           </Section>
+          <div className="dfoot">
+            <Updated date={d.lastUpdated} label={`${d.short} module last updated`} />
+          </div>
         </div>
       </div>
     </div>
@@ -234,8 +260,8 @@ function Genetics({ d }: { d: Disease }) {
               <div><dt>Transcript (MANE)</dt><dd className="mono">{g.transcript ?? '—'}</dd></div>
               <div><dt>UniProt</dt><dd className="mono">{g.uniprot ? <a href={`https://www.uniprot.org/uniprotkb/${g.uniprot}`} target="_blank" rel="noreferrer">{g.uniprot}</a> : '—'}</dd></div>
               <div><dt>NCBI Gene</dt><dd className="mono">{g.ncbiGene ? <a href={`https://www.ncbi.nlm.nih.gov/gene/${g.ncbiGene}`} target="_blank" rel="noreferrer">{g.ncbiGene}</a> : '—'}</dd></div>
-              <div className="span2"><dt>Normal function</dt><dd>{g.function}</dd></div>
-              <div className="span2"><dt>Biological pathway</dt><dd>{g.pathway}</dd></div>
+              <div className="span2"><dt>Normal function</dt><dd><Clamp lines={3}>{g.function}</Clamp></dd></div>
+              <div className="span2"><dt>Biological pathway</dt><dd><Clamp lines={2}>{g.pathway}</Clamp></dd></div>
               <div className="span2"><dt>Pathogenic variant types</dt><dd>{g.variantTypes.join(' · ')}</dd></div>
             </dl>
             <div className="ext-links">
@@ -323,7 +349,7 @@ function GenotypePhenotype({ d }: { d: Disease }) {
             {rows.map((r, i) => (
               <tr key={i}>
                 <td className="nowrap">{r.aspect}</td>
-                <td>{r.finding}</td>
+                <td><Clamp lines={3}>{r.finding}</Clamp></td>
                 <td>
                   <EvidenceBadge level={r.ev} why={r.why} src={r.src} title={`${r.aspect}: ${r.finding}`} />
                 </td>
@@ -372,7 +398,7 @@ function Spatial({ d }: { d: Disease }) {
                   <EvidenceBadge level={c.ev} src={c.src} title={`${c.cell} in ${d.short}`} compact />
                   <Cites src={c.src} title={c.cell} />
                 </div>
-                <p>{c.detail}</p>
+                <Clamp lines={2}><p>{c.detail}</p></Clamp>
               </li>
             ))}
           </ul>
@@ -386,7 +412,7 @@ function Spatial({ d }: { d: Disease }) {
                   <b>{r.region}</b>
                   <Cites src={r.src} title={r.region} />
                 </div>
-                <p>{r.finding}</p>
+                <Clamp lines={2}><p>{r.finding}</p></Clamp>
               </li>
             ))}
           </ul>
@@ -438,7 +464,7 @@ function Biomarkers({ d }: { d: Disease }) {
                         <b>{b.name}</b>
                         <div className="muted">{b.category}</div>
                       </td>
-                      <td>{b.significance}</td>
+                      <td className="wide"><Clamp lines={3}>{b.significance}</Clamp></td>
                       <td>
                         {b.sample}
                         <div className="muted">{b.assay}</div>
@@ -447,7 +473,7 @@ function Biomarkers({ d }: { d: Disease }) {
                       <td>
                         <span className={`status st-${b.status.split(' ')[0].toLowerCase()}`}>{b.status}</span>
                       </td>
-                      <td className="muted">{b.limitations}</td>
+                      <td className="muted wide"><Clamp lines={3}>{b.limitations}</Clamp></td>
                       <td className="nowrap">
                         <EvidenceBadge level={b.ev} src={b.src} title={b.name} compact /> <Cites src={b.src} title={b.name} />
                       </td>
@@ -480,7 +506,7 @@ function Diagnosis({ d }: { d: Disease }) {
                 <div key={j} className="dx-card">
                   <div className="dx-cat">{s.category}</div>
                   <b>{s.method}</b>
-                  <p>{s.detail}</p>
+                  <Clamp lines={3}><p>{s.detail}</p></Clamp>
                   <Cites src={s.src} title={s.method} />
                 </div>
               ))}
@@ -522,9 +548,9 @@ function Phenotypes({ d }: { d: Disease }) {
                   <td><b>{f.name}</b></td>
                   <td>{f.onset}</td>
                   <td>{f.severity}</td>
-                  <td>{f.progression}</td>
-                  <td>{f.genetics}</td>
-                  <td>{f.markers}</td>
+                  <td><Clamp lines={3}>{f.progression}</Clamp></td>
+                  <td><Clamp lines={3}>{f.genetics}</Clamp></td>
+                  <td><Clamp lines={3}>{f.markers}</Clamp></td>
                   <td><Cites src={f.src} title={f.name} /></td>
                 </tr>
               ))}
@@ -591,14 +617,14 @@ function Therapeutics({ d }: { d: Disease }) {
                 </td>
                 <td>
                   <span className="mono">{t.target}</span>
-                  <div className="muted">{t.mechanism}</div>
+                  <Clamp lines={2} className="muted">{t.mechanism}</Clamp>
                 </td>
                 <td>{t.delivery}</td>
                 <td className="nowrap">{t.stage}</td>
                 <td>
                   <span className={`base base-${t.evidenceBase.startsWith('Human') ? 'human' : 'model'}`}>{t.evidenceBase}</span>
                 </td>
-                <td>{t.status}</td>
+                <td className="wide"><Clamp lines={3}>{t.status}</Clamp></td>
                 <td className="nowrap">
                   <EvidenceBadge level={t.ev} why={t.why} src={t.src} title={t.name} compact /> <Cites src={t.src} title={t.name} />
                 </td>
@@ -641,15 +667,15 @@ export function TrialTable({ trials, showDisease }: { trials: (Disease['trials']
               {showDisease && <td>{t.diseaseId && <DiseaseChip id={t.diseaseId} />}</td>}
               <td>
                 <b>{t.intervention}</b>
-                <div className="muted">{t.mechanism}</div>
+                <Clamp lines={2} className="muted">{t.mechanism}</Clamp>
               </td>
               <td className="nowrap">{t.phase}</td>
               <td>
                 <span className={`tstatus ts-${t.status.split(/[ ,(]/)[0].toLowerCase()}`}>{t.status}</span>
               </td>
               <td>{t.sponsor}</td>
-              <td>{t.population}</td>
-              <td>{t.outcomes}</td>
+              <td><Clamp lines={3}>{t.population}</Clamp></td>
+              <td className="wide"><Clamp lines={3}>{t.outcomes}</Clamp></td>
               <td className="nowrap">
                 <span className="mono">{t.snapshot}</span>
                 <div className={t.verified ? 'verified' : 'unverified'}>{t.verified ? 'Verified' : 'Unverified'}</div>

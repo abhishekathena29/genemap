@@ -6,6 +6,7 @@ export const alexander: Disease = {
   id: 'alexander',
   name: 'Alexander Disease',
   short: 'Alexander',
+  lastUpdated: '2026-10-05',
   color: '#5a6fd6',
   synonyms: ['AxD', 'Fibrinoid leukodystrophy', 'GFAP-related astrogliopathy'],
   classification: 'Primary astrocytopathy; leukodystrophy with Rosenthal fibres',

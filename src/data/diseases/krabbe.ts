@@ -6,6 +6,7 @@ export const krabbe: Disease = {
   id: 'krabbe',
   name: 'Krabbe Disease',
   short: 'Krabbe',
+  lastUpdated: '2026-10-05',
   color: '#d9622b',
   synonyms: ['Globoid cell leukodystrophy (GLD)', 'Galactosylceramide lipidosis', 'GALC deficiency'],
   classification: 'Lysosomal storage disorder (sphingolipidosis); demyelinating leukodystrophy',

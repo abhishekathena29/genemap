@@ -10,7 +10,7 @@ export function Search({ q }: { q: string }) {
   const groups = ORDER.map((t) => [t, results.filter((r) => r.type === t)] as const).filter(([, r]) => r.length)
   return (
     <div className="page">
-      <PageHead kicker="Search" title={q ? `Results for “${q}”` : 'Search the atlas'}>
+      <PageHead icon="research" kicker="Search" title={q ? `Results for “${q}”` : 'Search the atlas'}>
         Search diseases, genes, proteins, variants, biomarkers, therapies, clinical trials and pathways.
       </PageHead>
       <SearchBox big />

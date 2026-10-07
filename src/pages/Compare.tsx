@@ -28,7 +28,7 @@ export function Compare({ view: v0 }: { view?: string | null }) {
 
   return (
     <div className="page">
-      <PageHead kicker="Cross-disease comparison" title="Compare leukodystrophies">
+      <PageHead icon="compare" kicker="Cross-disease comparison" title="Compare leukodystrophies">
         The atlas layer: view genes, mechanisms, cells, biomarkers, diagnostics, therapies and evidence side by side.
       </PageHead>
       <div className="picker">

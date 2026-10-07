@@ -6,6 +6,7 @@ export const xald: Disease = {
   id: 'xald',
   name: 'X-linked Adrenoleukodystrophy',
   short: 'X-ALD',
+  lastUpdated: '2026-10-05',
   color: '#c23f6a',
   synonyms: ['ALD', 'Adrenomyeloneuropathy (AMN)', 'Cerebral ALD (cALD)', 'Addison–Schilder disease'],
   classification: 'Peroxisomal disorder (single-enzyme / transporter defect); inflammatory demyelinating leukodystrophy & myelopathy',

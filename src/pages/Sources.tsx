@@ -13,7 +13,7 @@ export function Sources() {
     .sort((a, b) => a.kind.localeCompare(b.kind) || (b.year ?? 0) - (a.year ?? 0))
   return (
     <div className="page">
-      <PageHead kicker="Source library" title="Sources & citations">
+      <PageHead icon="sources" kicker="Source library" title="Sources & citations">
         Every source cited by a claim in the atlas, with the diseases that cite it. Literature entries link to PubMed; database entries link to the live record.
       </PageHead>
       <div className="filters">

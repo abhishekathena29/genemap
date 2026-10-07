@@ -18,7 +18,7 @@ export function Evidence({ diseaseId, level }: { diseaseId?: string | null; leve
 
   return (
     <div className="page">
-      <PageHead kicker="Evidence explorer" title="Browse by evidence strength">
+      <PageHead icon="evidence" kicker="Evidence explorer" title="Browse by evidence strength">
         Every graded statement in GeneMap. Labels come from the curated research data; click any label for the curator rationale and supporting sources.
       </PageHead>
       <div className="ev-filter">

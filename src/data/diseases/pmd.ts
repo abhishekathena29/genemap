@@ -6,6 +6,7 @@ export const pmd: Disease = {
   id: 'pmd',
   name: 'Pelizaeus–Merzbacher Disease',
   short: 'PMD',
+  lastUpdated: '2026-10-05',
   color: '#1f9e8a',
   synonyms: ['PLP1-related disorders', 'Hypomyelinating leukodystrophy 1 (HLD1)', 'PLP1 null syndrome (allelic)', 'SPG2 (allelic)'],
   classification: 'Hypomyelinating leukodystrophy',

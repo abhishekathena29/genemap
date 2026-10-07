@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { search } from '../data'
+import { Disclaimer } from './ui'
 import { Link } from '../lib/Link'
 import { navigate, useRoute } from '../lib/router'
 
@@ -11,6 +12,7 @@ const NAV = [
   ['/compare', 'Compare'],
   ['/evidence', 'Evidence'],
   ['/sources', 'Sources'],
+  ['/about', 'About'],
 ] as const
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -40,12 +42,24 @@ export function Layout({ children }: { children: ReactNode }) {
           </button>
         </div>
       </header>
+      <Disclaimer variant="bar" />
       <main className="main">{children}</main>
       <footer className="footer">
-        <div>
-          <strong>GeneMap</strong> — an integrated research atlas of genetic leukodystrophies. Research reference only; not for clinical decision-making.
+        <div className="footer-brand">
+          <Logo />
+          <div>
+            <strong>GeneMap</strong>
+            <div className="muted">An integrated research atlas of genetic leukodystrophies · by Amaara Subramaniam</div>
+          </div>
+          <nav className="footer-links">
+            <Link to="/about">About</Link>
+            <Link to="/about?s=future">Future directions</Link>
+            <Link to="/?s=how-to-use">How to use</Link>
+            <Link to="/sources">Sources</Link>
+          </nav>
         </div>
-        <div className="muted">
+        <Disclaimer variant="inline" />
+        <div className="muted sm">
           Curation status: seed dataset assembled from public reference resources. Evidence levels, variants and trial records must be reconciled against the GeneMap research dossiers. Trial statuses are time-stamped snapshots — always confirm on ClinicalTrials.gov.
         </div>
       </footer>

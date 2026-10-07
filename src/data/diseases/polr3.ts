@@ -6,6 +6,7 @@ export const polr3: Disease = {
   id: 'polr3',
   name: 'POLR3-related Leukodystrophy',
   short: 'POLR3-HLD',
+  lastUpdated: '2026-10-05',
   color: '#4f9a3a',
   synonyms: ['4H leukodystrophy (hypomyelination, hypodontia, hypogonadotropic hypogonadism)', 'POLR3-HLD', 'HLD7 (POLR3A)', 'HLD8 (POLR3B)', 'HLD11 (POLR1C)'],
   classification: 'Hypomyelinating leukodystrophy; disorder of RNA polymerase III',

@@ -6,6 +6,7 @@ export const vwm: Disease = {
   id: 'vwm',
   name: 'Vanishing White Matter Disease',
   short: 'VWM',
+  lastUpdated: '2026-10-05',
   color: '#b8901a',
   synonyms: ['Childhood ataxia with CNS hypomyelination (CACH)', 'Leukoencephalopathy with vanishing white matter', 'eIF2B-related disorder', 'Cree leukoencephalopathy (allelic)', 'Ovarioleukodystrophy'],
   classification: 'Cystic / rarefying leukodystrophy (astrocytopathy); disorder of translation regulation',

@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { Icon, IconTile, type IconName } from './icons'
 import { EVIDENCE, EVIDENCE_BY_LEVEL } from '../data/evidence'
 import { DISEASE_BY_ID } from '../data'
 import { SOURCES, SOURCE_KIND_LABEL } from '../data/sources'
@@ -79,14 +80,98 @@ export function ClaimRow({ c }: { c: Claim }) {
   return (
     <div className="claim">
       {c.label && <div className="claim-label">{c.label}</div>}
-      <div className="claim-body">
-        <span>{c.text}</span>
-        <span className="claim-meta">
-          {c.ev && <EvidenceBadge level={c.ev} why={c.why} src={c.src} title={c.label ?? c.text} />}
-          <Cites src={c.src} title={c.label ?? 'Sources'} />
-        </span>
+      <Clamp className="claim-text" lines={4}>
+        {c.text}
+      </Clamp>
+      <div className="claim-meta">
+        {c.ev && <EvidenceBadge level={c.ev} why={c.why} src={c.src} title={c.label ?? c.text} />}
+        <Cites src={c.src} title={c.label ?? 'Sources'} />
       </div>
     </div>
+  )
+}
+
+/** Clamps long text to a few lines with a "more" toggle — the full text stays on the page. */
+export function Clamp({ children, lines = 3, className = '' }: { children: ReactNode; lines?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [open, setOpen] = useState(false)
+  const [overflows, setOverflows] = useState(false)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el || open) return
+    // scrollHeight is unreliable under line-clamp in Chrome, so compare against the unclamped height.
+    const check = () => {
+      const clamped = el.clientHeight
+      el.classList.remove('clamp')
+      const full = el.clientHeight
+      el.classList.add('clamp')
+      setOverflows(full > clamped + 1)
+    }
+    check()
+    // Web fonts can reflow text without resizing the clamped box, so re-check once they load.
+    document.fonts?.ready.then(check)
+    document.fonts?.addEventListener('loadingdone', check)
+    const ro = new ResizeObserver(check)
+    ro.observe(el)
+    return () => {
+      ro.disconnect()
+      document.fonts?.removeEventListener('loadingdone', check)
+    }
+  }, [open])
+  return (
+    <div className={`clamp-wrap ${className}`}>
+      <div ref={ref} className={open ? 'clamp-open' : 'clamp'} style={{ ['--lines' as string]: lines }}>
+        {children}
+      </div>
+      {(overflows || open) && (
+        <button
+          type="button"
+          className="clamp-btn"
+          onClick={(e) => {
+            e.stopPropagation()
+            setOpen(!open)
+          }}
+        >
+          {open ? 'Show less' : 'Read more'}
+        </button>
+      )}
+    </div>
+  )
+}
+
+/** Research/education disclaimer. `variant="bar"` is the slim site-wide strip. */
+export function Disclaimer({ variant = 'card' }: { variant?: 'card' | 'bar' | 'inline' }) {
+  if (variant === 'bar')
+    return (
+      <div className="disclaimer-bar" role="note">
+        <Icon name="shield" size={15} />
+        <span>
+          <b>For research &amp; education only</b> — not a substitute for medical advice. <Link to="/about?s=disclaimer">Read the disclaimer</Link>
+        </span>
+      </div>
+    )
+  return (
+    <div className={`disclaimer disclaimer-${variant}`} role="note" id={variant === 'card' ? 'disclaimer' : undefined}>
+      <IconTile name="shield" tone="orange" size={variant === 'inline' ? 32 : 44} />
+      <div>
+        <b>GeneMap is a research and educational atlas — not a substitute for medical advice.</b>
+        <p>
+          Nothing here should be used to diagnose, treat or make decisions about any individual's health. Always consult a qualified clinician or genetic counsellor
+          with medical questions. Trial statuses are time-stamped snapshots; confirm them on ClinicalTrials.gov.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+/** "Last updated" stamp for curated modules. */
+export function Updated({ date, label = 'Last updated' }: { date: string; label?: string }) {
+  const fmt = new Date(`${date}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+  return (
+    <span className="updated" title={`Content last revised ${date}`}>
+      <Icon name="calendar" size={14} />
+      {label} <time dateTime={date}>{fmt}</time>
+    </span>
   )
 }
 
@@ -163,12 +248,15 @@ export function Expandable({ summary, children, defaultOpen = false }: { summary
   )
 }
 
-export function PageHead({ kicker, title, children }: { kicker: string; title: string; children?: ReactNode }) {
+export function PageHead({ kicker, title, icon, children }: { kicker: string; title: string; icon?: IconName; children?: ReactNode }) {
   return (
     <header className="page-head">
-      <div className="kicker">{kicker}</div>
-      <h1>{title}</h1>
-      {children && <div className="page-lede">{children}</div>}
+      {icon && <IconTile name={icon} tone="violet" size={52} />}
+      <div>
+        <div className="kicker">{kicker}</div>
+        <h1>{title}</h1>
+        {children && <div className="page-lede">{children}</div>}
+      </div>
     </header>
   )
 }
