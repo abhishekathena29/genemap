@@ -1,16 +1,6 @@
 import type { Source, SourceKind } from './types'
-
-const pubmed = (title: string) =>
-  `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(title)}`
-
-const lit = (
-  id: string,
-  authors: string,
-  year: number,
-  title: string,
-  venue: string,
-  kind: SourceKind = 'primary',
-): Source => ({ id, authors, year, title, venue, kind, url: pubmed(title) })
+import { lit, pubmed } from './cite'
+import { EXTRA_GENE_SYMBOLS, EXTRA_SOURCES } from './diseases/extra'
 
 const SOURCES_LIST: Source[] = [
   // ── Reference resources: disease level ──────────────────────────────
@@ -259,6 +249,7 @@ const SOURCES_LIST: Source[] = [
     'Mutation in POLR3K causes hypomyelinating leukodystrophy and abnormal ribosomal RNA regulation', 'Neurol Genet'),
   lit('lit:merheb2021', 'Merheb E, Cui MH, DuBois JC, et al.', 2021,
     'Defective myelination in an RNA polymerase III mutant leukodystrophic mouse', 'Proc Natl Acad Sci U S A'),
+  ...EXTRA_SOURCES,
 ]
 
 // Gene-level database links are generated so every gene in the atlas is
@@ -279,6 +270,7 @@ export const ALL_GENE_SYMBOLS = [
   'ASPA', 'SLC13A3', 'NAT8L', 'GALC', 'PSAP', 'ARSA', 'ABCD1', 'PLP1',
   'EIF2B1', 'EIF2B2', 'EIF2B3', 'EIF2B4', 'EIF2B5', 'GFAP',
   'POLR3A', 'POLR3B', 'POLR1C', 'POLR3K', 'POLR3GL',
+  ...EXTRA_GENE_SYMBOLS,
 ]
 
 for (const g of ALL_GENE_SYMBOLS) {

@@ -6,11 +6,12 @@ import { pmd } from './diseases/pmd'
 import { polr3 } from './diseases/polr3'
 import { vwm } from './diseases/vwm'
 import { xald } from './diseases/xald'
+import { EXTRA_DISEASES } from './diseases/extra'
 import { GENES } from './genes'
 import { ctgov, registerSource, SOURCES } from './sources'
 import type { Disease, EvidenceLevel, NodeType } from './types'
 
-export const DISEASES: Disease[] = [canavan, krabbe, mld, xald, pmd, vwm, alexander, polr3]
+export const DISEASES: Disease[] = [canavan, krabbe, mld, xald, pmd, vwm, alexander, polr3, ...EXTRA_DISEASES]
 export const DISEASE_BY_ID: Record<string, Disease> = Object.fromEntries(DISEASES.map((d) => [d.id, d]))
 
 /** All source ids referenced (via `src` arrays) anywhere inside a value. */

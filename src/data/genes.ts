@@ -1,4 +1,5 @@
 import type { Gene } from './types'
+import { EXTRA_GENES } from './diseases/extra'
 
 const db = (g: string) => [`db:ncbi:${g}`, `db:uniprot:${g}`, `db:hgnc:${g}`]
 
@@ -226,6 +227,7 @@ export const GENES: Gene[] = [
     ev: 'emerging',
     src: ['q:slc13a3-naa', ...db('SLC13A3')],
   },
+  ...EXTRA_GENES,
 ]
 
 export const GENE_BY_SYMBOL: Record<string, Gene> = Object.fromEntries(GENES.map((g) => [g.symbol, g]))

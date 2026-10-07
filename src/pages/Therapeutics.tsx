@@ -89,21 +89,21 @@ export function Landscape() {
       <table className="tbl matrix">
         <thead>
           <tr>
-            <th>Modality</th>
-            {DISEASES.map((d) => <th key={d.id}><DiseaseChip id={d.id} /></th>)}
+            <th>Disease</th>
+            {MODALITIES.map((m) => <th key={m}>{m}</th>)}
           </tr>
         </thead>
         <tbody>
-          {MODALITIES.map((m) => (
-            <tr key={m}>
-              <th>{m}</th>
-              {DISEASES.map((d) => {
+          {DISEASES.map((d) => (
+            <tr key={d.id}>
+              <th><DiseaseChip id={d.id} /></th>
+              {MODALITIES.map((m) => {
                 const ts = d.therapies.filter((t) => t.modality === m)
-                if (!ts.length) return <td key={d.id} className="cell-empty">—</td>
+                if (!ts.length) return <td key={m} className="cell-empty">—</td>
                 const best = ts.reduce((a, b) => (STAGES.indexOf(b.stage) > STAGES.indexOf(a.stage) ? b : a))
                 const lvl = STAGES.indexOf(best.stage)
                 return (
-                  <td key={d.id} className={`stage-cell sc-${lvl}`} title={ts.map((t) => `${t.name} — ${t.stage}`).join('\n')}>
+                  <td key={m} className={`stage-cell sc-${lvl}`} title={ts.map((t) => `${t.name} — ${t.stage}`).join('\n')}>
                     <div className="sc-stage">{best.stage}</div>
                     <div className="sc-name">{ts.length > 1 ? `${ts.length} approaches` : best.name}</div>
                     <EvidenceBadge level={best.ev} why={best.why} src={best.src} title={best.name} compact />

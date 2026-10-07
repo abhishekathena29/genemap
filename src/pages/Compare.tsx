@@ -22,7 +22,7 @@ type View = (typeof VIEWS)[number][0]
 
 export function Compare({ view: v0 }: { view?: string | null }) {
   const [view, setView] = useState<View>((VIEWS.find((v) => v[0] === v0)?.[0] as View) ?? 'genes')
-  const [sel, setSel] = useState<string[]>(DISEASES.map((d) => d.id))
+  const [sel, setSel] = useState<string[]>(DISEASES.slice(0, 8).map((d) => d.id))
   const ds = DISEASES.filter((d) => sel.includes(d.id))
   const toggle = (id: string) => setSel((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]))
 
@@ -32,6 +32,8 @@ export function Compare({ view: v0 }: { view?: string | null }) {
         The atlas layer: view genes, mechanisms, cells, biomarkers, diagnostics, therapies and evidence side by side.
       </PageHead>
       <div className="picker">
+        <button type="button" className="picker-btn" onClick={() => setSel(DISEASES.map((d) => d.id))}>Select all</button>
+        <button type="button" className="picker-btn" onClick={() => setSel([])}>Clear</button>
         {DISEASES.map((d) => (
           <label key={d.id} className={sel.includes(d.id) ? 'on' : ''} style={{ ['--dc' as string]: d.color }}>
             <input type="checkbox" checked={sel.includes(d.id)} onChange={() => toggle(d.id)} />
@@ -136,7 +138,7 @@ function MechanismView({ ds }: { ds: Disease[] }) {
 }
 
 function CellsView({ ds }: { ds: Disease[] }) {
-  const cells: CellType[] = ['Oligodendrocytes', 'Astrocytes', 'Neurons / axons', 'Microglia / macrophages', 'Schwann cells', 'Non-CNS tissue']
+  const cells: CellType[] = ['Oligodendrocytes', 'Astrocytes', 'Neurons / axons', 'Microglia / macrophages', 'Schwann cells', 'Vascular / endothelial cells', 'Non-CNS tissue']
   return (
     <>
       <div className="table-wrap">

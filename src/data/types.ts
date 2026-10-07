@@ -69,7 +69,9 @@ export interface Identifier {
 export type Inheritance =
   | 'Autosomal recessive'
   | 'X-linked'
+  | 'Autosomal dominant'
   | 'Autosomal dominant (mostly de novo)'
+  | 'Autosomal recessive or dominant'
 
 export interface Gene {
   symbol: string
@@ -146,6 +148,7 @@ export type CellType =
   | 'Neurons / axons'
   | 'Microglia / macrophages'
   | 'Schwann cells'
+  | 'Vascular / endothelial cells'
   | 'Non-CNS tissue'
 
 export interface CellEntry {

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { search } from '../data'
+import { Icon } from './icons'
 import { Link } from '../lib/Link'
 import { navigate, useRoute } from '../lib/router'
 
@@ -36,6 +37,7 @@ export function Layout({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <SearchBox />
+          <ThemeToggle />
           <button className="menu-btn" onClick={() => setMenu(!menu)} aria-label="Menu">
             ☰
           </button>
@@ -58,6 +60,26 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </footer>
     </div>
+  )
+}
+
+function ThemeToggle() {
+  const [dark, setDark] = useState(() => document.documentElement.dataset.theme === 'dark')
+  const flip = () => {
+    const next = !dark
+    setDark(next)
+    if (next) document.documentElement.dataset.theme = 'dark'
+    else delete document.documentElement.dataset.theme
+    try {
+      localStorage.setItem('gm-theme', next ? 'dark' : 'light')
+    } catch {
+      /* storage unavailable: theme still applies for this visit */
+    }
+  }
+  return (
+    <button type="button" className="theme-btn" onClick={flip} aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'} title={dark ? 'Light theme' : 'Dark theme'}>
+      <Icon name={dark ? 'sun' : 'moon'} size={17} />
+    </button>
   )
 }
 
