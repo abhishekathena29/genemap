@@ -107,7 +107,7 @@ const JOURNEY: { icon: IconName; tone: Tone; where: string; text: string }[] = [
     icon: 'diagnosis',
     tone: 'orange',
     where: 'Research with Dr. Usha Dave',
-    text: 'Through exposure to genetic counselling and my project on N-acetylaspartate detection in Canavan disease, I saw how a change in a single gene, ASPA, can have profound consequences for neurological development — and how understanding that molecular basis can inform diagnosis and potential treatment.',
+    text: 'Dr. Dave first introduced me to leukodystrophies, a group of rare genetic disorders affecting the brain’s white matter. Through exposure to genetic counselling and my project on N-acetylaspartate detection in Canavan disease, I saw how a change in a single gene, ASPA, can have profound consequences for neurological development — and how understanding that molecular basis can inform diagnosis and potential treatment.',
   },
   {
     icon: 'cell',
